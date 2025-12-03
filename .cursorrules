@@ -1,0 +1,30 @@
+Knit Prototype Conventions
+
+- Glossary:
+  - Knit: a friend group in this product.
+  - Member: a person in a Knit.
+  - Invite: a link/token letting a person join a Knit.
+  - Availability: time preferences a member shares, designed to be persistent but expirable.
+
+- Frontend:
+  - Framework: Angular (keep existing NgModule structure).
+  - Styling: SCSS only (no CSS files).
+  - Routing: use clear, semantic routes, e.g. /create-knit, /invite/:id, /availability-setup, /knit/:id.
+  - State: create a dedicated service to manage Knit, Members, Invites, and Availability.
+
+- Prototype persistence:
+  - Use localStorage for now; namespace keys with knit:*.
+  - Store availability with an expiration timestamp and sweep expired entries.
+  - Avoid external analytics in this prototype.
+
+- Privacy & UX (prototype-level):
+  - Availability is visible only within the relevant Knit views.
+  - Keep flows short: create-knit -> share invite -> join -> availability setup -> dashboard.
+  - Prefer accessible, mobile-first UI.
+
+- Code style:
+  - Descriptive names, no cryptic abbreviations.
+  - Keep components focused; push data logic into services.
+  - Add minimal unit tests for critical services and flows.
+
+
