@@ -1,0 +1,63 @@
+.create-knit {
+  padding: 16px;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.error {
+  color: #b00020;
+  font-size: 12px;
+}
+
+input[type="text"],
+textarea {
+  padding: 10px 12px;
+  border: 1px solid #cfd8dc;
+  border-radius: 8px;
+  font: inherit;
+  width: 100%;
+}
+
+button[type="submit"],
+button[type="button"] {
+  appearance: none;
+  border: none;
+  background: #0b5fff;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.result {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eceff1;
+}
+
+.invite {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.invite-input {
+  flex: 1;
+}
+
+

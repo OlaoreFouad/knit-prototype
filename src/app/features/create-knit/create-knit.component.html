@@ -1,0 +1,45 @@
+<div class="create-knit">
+  <h1>Create a Knit</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <label class="field">
+      <span class="label">Name</span>
+      <input type="text" formControlName="name" placeholder="e.g. Friday Dinners" />
+      <span class="error" *ngIf="form.controls.name.touched && form.controls.name.invalid">Name is required</span>
+    </label>
+
+    <label class="field">
+      <span class="label">Description (optional)</span>
+      <textarea formControlName="description" rows="3" placeholder="What is this Knit about?"></textarea>
+    </label>
+
+    <label class="field">
+      <span class="label">How many friends?</span>
+      <div class="range-options">
+        <label><input type="radio" formControlName="friendCountRange" value="2-4" /> 2–4</label>
+        <label><input type="radio" formControlName="friendCountRange" value="4-7" /> 4–7</label>
+        <label><input type="radio" formControlName="friendCountRange" value="8+" /> 8+</label>
+      </div>
+    </label>
+
+    <details class="field">
+      <summary class="label">Security question (applies to link/QR joins)</summary>
+      <input type="text" formControlName="securityQuestion" placeholder="e.g. What's our favorite restaurant?" />
+      <input type="text" formControlName="securityAnswer" placeholder="Answer" />
+      <p class="hint">Required for open-link and QR joins unless disabled later.</p>
+    </details>
+
+    <button type="submit">Create Knit</button>
+  </form>
+
+  <div class="result" *ngIf="createdInviteUrl">
+    <h2>Your invite link</h2>
+    <div class="invite">
+      <input class="invite-input" [value]="createdInviteUrl" readonly />
+      <button type="button" (click)="copyInvite()">Copy</button>
+    </div>
+    <p>Share this link with friends to invite them.</p>
+  </div>
+</div>
+
+

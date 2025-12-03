@@ -1,0 +1,101 @@
+<div class="knit-space" *ngIf="knit">
+  <div class="hero">
+    <h1>Welcome to {{ knit.name }}</h1>
+    <p class="subtle">Private Knit — just invitees can join.</p>
+  </div>
+
+  <section class="summary">
+    <div class="card">
+      <h2>Summary</h2>
+      <ul>
+        <li><strong>Friends:</strong> {{ inviteEmails.length }} invited</li>
+        <li><strong>Size target:</strong> {{ knit.friendCountRange }}</li>
+        <li>
+          <strong>Security:</strong>
+          {{ knit.securityQuestion ? "Enabled" : "Disabled" }}
+        </li>
+      </ul>
+      <button class="primary" (click)="isInviteOpen = true">
+        Add friends to knit
+      </button>
+    </div>
+  </section>
+
+  <div
+    class="modal-backdrop"
+    *ngIf="isInviteOpen"
+    (click)="isInviteOpen = false"
+  ></div>
+  <div class="modal" *ngIf="isInviteOpen" role="dialog" aria-modal="true">
+    <header class="modal-header">
+      <h3>Add friends</h3>
+      <button
+        class="icon-btn"
+        (click)="isInviteOpen = false"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </header>
+    <div class="modal-content">
+      <section class="share">
+        <h4>Share link</h4>
+        <div class="link-row">
+          <input [value]="inviteUrl" readonly class="invite-input" />
+          <button (click)="copyLink()">Copy</button>
+        </div>
+        <div class="share-actions">
+          <button (click)="shareWhatsApp()">WhatsApp</button>
+          <button (click)="shareInstagram()">Instagram</button>
+        </div>
+        <div class="qr">
+          <img [src]="qrSrc" alt="QR code for join link" />
+        </div>
+      </section>
+
+      <section class="emails">
+        <h4>Email invites</h4>
+        <p class="hint">Paste or type emails separated by commas or spaces.</p>
+        <textarea
+          [(ngModel)]="emailsText"
+          rows="3"
+          placeholder="alice@example.com, bob@example.com"
+        ></textarea>
+        <div class="email-actions">
+          <button (click)="parseEmails()">Add emails</button>
+          <button
+            (click)="sendInvites()"
+            [disabled]="inviteEmails.length === 0"
+          >
+            Send invites
+          </button>
+        </div>
+        <table *ngIf="inviteEmails.length">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of inviteEmails">
+              <td>{{ i.email }}</td>
+              <td
+                class="status"
+                [class.sent]="i.state === 'sent'"
+                [class.failed]="i.state === 'failed'"
+                [class.pending]="i.state === 'pending'"
+              >
+                {{ i.state }}
+              </td>
+              <td>{{ i.updatedAt | date : "short" }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <app-knit-bottom-nav *ngIf="knit" [knitId]="knit.id"></app-knit-bottom-nav>
+</div>
