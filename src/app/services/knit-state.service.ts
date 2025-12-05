@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Knit } from '../models/knit';
 import { Invite } from '../models/invite';
+import { Availability } from '../models/availability';
 
 type KnitMap = Record<string, Knit>;
 type InviteMap = Record<string, Invite>;
@@ -11,6 +12,9 @@ type InviteMap = Record<string, Invite>;
 export class KnitStateService {
   private readonly KNITS_KEY = 'knit:knits';
   private readonly INVITES_KEY = 'knit:invites';
+  private availabilityKey(knitId: string): string {
+    return `knit:availability:self:${knitId}`;
+  }
 
   createKnit(params: { name: string; description?: string }): { knit: Knit; invite: Invite; inviteUrl: string } {
     const knitId = this.generateId('k');
@@ -60,6 +64,35 @@ export class KnitStateService {
   private buildInviteUrl(inviteId: string): string {
     const origin = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : '';
     return `${origin}/invite/${inviteId}`;
+  }
+
+  // Availability (self)
+  saveSelfAvailability(knitId: string, data: Omit<Availability, 'owner' | 'knitId' | 'createdAt' | 'updatedAt'> & Partial<Pick<Availability, 'createdAt'>>): Availability {
+    const now = Date.now();
+    const existing = this.getSelfAvailability(knitId);
+    const availability: Availability = {
+      knitId,
+      owner: 'self',
+      createdAt: existing?.createdAt ?? data.createdAt ?? now,
+      updatedAt: now,
+      expiresAt: data.expiresAt,
+      selectedDateKeys: Array.from(new Set(data.selectedDateKeys)).sort(),
+      selectedTimeSlots: Array.from(new Set(data.selectedTimeSlots)).sort(),
+      perDateTime: data.perDateTime
+    };
+    localStorage.setItem(this.availabilityKey(knitId), JSON.stringify(availability));
+    return availability;
+  }
+
+  getSelfAvailability(knitId: string): Availability | null {
+    const key = this.availabilityKey(knitId);
+    const parsed = this.safeParse<Availability>(localStorage.getItem(key));
+    if (!parsed) return null;
+    if (parsed.expiresAt && parsed.expiresAt < Date.now()) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsed;
   }
 
   private getKnitsMap(): KnitMap {

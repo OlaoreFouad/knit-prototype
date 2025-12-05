@@ -1,0 +1,21 @@
+<div class="settings" *ngIf="knit">
+  <header class="settings-header">
+    <h2>Settings</h2>
+    <p class="muted">{{ knit.name }}</p>
+  </header>
+  <ul class="list">
+    <li class="item" (click)="openAvailability()">
+      <div class="icon">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 10h5v5H7zM5 3h2v2h10V3h2v2h3v16H2V5h3zm0 6v10h14V9H5z"/></svg>
+      </div>
+      <div class="content">
+        <div class="title">My availability</div>
+        <div class="subtitle">Set dates and times, with an expiry</div>
+      </div>
+      <div class="chev">›</div>
+    </li>
+  </ul>
+  <app-knit-bottom-nav [knitId]="knit.id"></app-knit-bottom-nav>
+</div>
+
+

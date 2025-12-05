@@ -1,0 +1,100 @@
+<div class="availability" *ngIf="knit">
+  <header class="head">
+    <h2>My availability</h2>
+    <p class="muted">{{ knit.name }}</p>
+  </header>
+
+  <section *ngIf="step === 1" class="card">
+    <h3>1. Choose expiry</h3>
+    <div class="options">
+      <button [class.active]="durationWeeks === 1" (click)="setDuration(1)">In 1 week</button>
+      <button [class.active]="durationWeeks === 2" (click)="setDuration(2)">In 2 weeks</button>
+      <button [class.active]="durationWeeks === 4" (click)="setDuration(4)">In 4 weeks</button>
+      <button [class.active]="durationWeeks === 8" (click)="setDuration(8)">In 8 weeks</button>
+    </div>
+    <div class="actions">
+      <button class="primary" (click)="next()">Next</button>
+    </div>
+  </section>
+
+  <section *ngIf="step === 2" class="card">
+    <h3>2. Select dates</h3>
+    <div class="date-grid">
+      <button
+        *ngFor="let d of dateOptions"
+        [class.selected]="selectedDateKeys.has(d.key)"
+        (click)="toggleDate(d.key)">
+        <span class="big">{{ d.label }}</span>
+      </button>
+    </div>
+    <div class="actions">
+      <button (click)="back()">Back</button>
+      <button class="primary" (click)="next()">Next</button>
+    </div>
+  </section>
+
+  <section *ngIf="step === 3" class="card">
+    <h3>3. Select times</h3>
+    <p class="muted">Select all the potential times you'd be available across all your selected dates.</p>
+    <div class="time-grid">
+      <button
+        *ngFor="let t of timeSlots"
+        [class.selected]="selectedTimeSlots.has(t)"
+        (click)="toggleTime(t)">
+        <span class="big">{{ t }}</span>
+        <span class="check" *ngIf="selectedTimeSlots.has(t)">✓</span>
+      </button>
+    </div>
+    <div class="actions">
+      <button (click)="back()">Back</button>
+      <button class="primary" (click)="next()">Next</button>
+    </div>
+  </section>
+
+  <section *ngIf="step === 4" class="card">
+    <h3>4. Fine-tune by date</h3>
+    <div class="date-stack">
+      <div class="date-row" *ngFor="let d of dateOptions" [class.hidden]="!selectedDateKeys.has(d.key)">
+        <div class="col date-col">
+          <div class="dow">{{ d.label }}</div>
+        </div>
+        <div class="col times-col">
+          <div class="time-status" *ngFor="let t of selectedTimes">
+            <span class="t">{{ t }}</span>
+            <div class="actions3">
+              <button type="button" [class.active]="perDateTime[d.key]?.[t] === 'yes'" (click)="setStatus(d.key, t, 'yes')" title="Yes">✓</button>
+              <button type="button" [class.active]="perDateTime[d.key]?.[t] === 'maybe'" (click)="setStatus(d.key, t, 'maybe')" title="Maybe">?</button>
+              <button type="button" [class.active]="perDateTime[d.key]?.[t] === 'no'" (click)="setStatus(d.key, t, 'no')" title="No">✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button (click)="back()">Back</button>
+      <button class="primary" (click)="next()">Review</button>
+    </div>
+  </section>
+
+  <section *ngIf="step === 5" class="card">
+    <h3>Review and save</h3>
+    <p class="muted">Expires in {{ durationWeeks }} week(s)</p>
+    <p><strong>{{ selectedDateKeys.size }}</strong> date(s) and <strong>{{ selectedTimeSlots.size }}</strong> time(s) selected.</p>
+    <div class="review-list">
+      <div class="review-row" *ngFor="let d of dateOptions" [class.hidden]="!selectedDateKeys.has(d.key)">
+        <div class="review-date">{{ d.label }}</div>
+        <div class="review-times">
+          <span class="pill yes" *ngFor="let t of selectedTimes" [hidden]="perDateTime[d.key]?.[t] !== 'yes'">{{ t }} ✓</span>
+          <span class="pill maybe" *ngFor="let t of selectedTimes" [hidden]="perDateTime[d.key]?.[t] !== 'maybe'">{{ t }} ?</span>
+          <span class="pill no" *ngFor="let t of selectedTimes" [hidden]="perDateTime[d.key]?.[t] !== 'no'">{{ t }} ✕</span>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button (click)="back()">Back</button>
+      <button class="primary" (click)="save()">Save</button>
+    </div>
+  </section>
+</div>
+
+

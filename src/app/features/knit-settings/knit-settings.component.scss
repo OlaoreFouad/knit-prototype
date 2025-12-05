@@ -1,0 +1,43 @@
+.settings {
+  padding: 16px;
+  padding-bottom: 88px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fb 0%, #eef2ff 100%);
+}
+.muted {
+  color: #64748b;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: grid;
+  gap: 8px;
+}
+.item {
+  display: grid;
+  grid-template-columns: 36px 1fr 16px;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+}
+.icon svg {
+  width: 24px;
+  height: 24px;
+}
+.title {
+  font-weight: 700;
+}
+.subtitle {
+  color: #64748b;
+  font-size: 13px;
+}
+.chev {
+  color: #64748b;
+  font-size: 18px;
+}
+

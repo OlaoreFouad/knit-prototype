@@ -1,0 +1,195 @@
+.availability {
+  padding: 16px;
+  padding-bottom: 88px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fb 0%, #eef2ff 100%);
+}
+.muted {
+  color: #64748b;
+}
+.card {
+  background: #ffffff;
+  border: 1px solid #e3e8ef;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+  margin-top: 12px;
+}
+.options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.options button,
+.actions button {
+  appearance: none;
+  border: 1px solid #e3e8ef;
+  background: #fff;
+  color: #334155;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.options button.active {
+  background: #eef2ff;
+  border-color: #b7c2ff;
+  color: #0b5fff;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.primary {
+  background: #0b5fff !important;
+  border-color: #0b5fff !important;
+  color: #fff !important;
+}
+.date-grid {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.date-grid button,
+.time-grid button {
+  border: 1px solid #e3e8ef;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
+.date-grid button.selected,
+.time-grid button.selected {
+  background: #eef2ff;
+  border-color: #b7c2ff;
+  color: #0b5fff;
+}
+.big {
+  font-weight: 700;
+}
+.time-grid {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.check {
+  margin-left: 6px;
+  color: #2e7d32;
+}
+
+/* Step 4 layout: date rows split 50/50 */
+.date-stack {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px;
+}
+.date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 50% / 50% */
+  gap: 8px;
+  align-items: start;
+}
+.date-row.hidden {
+  display: none;
+}
+.date-col {
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 12px;
+}
+.dow {
+  font-weight: 700;
+}
+.times-col {
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 8px;
+}
+.time-status {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+}
+.time-status.hidden {
+  display: none;
+}
+.t {
+  font-weight: 600;
+}
+.actions3 {
+  display: inline-flex;
+  gap: 6px;
+}
+.actions3 button {
+  appearance: none;
+  border: 1px solid #e3e8ef;
+  background: #fff;
+  color: #334155;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+}
+.actions3 button.active {
+  background: #eef2ff;
+  border-color: #b7c2ff;
+  color: #0b5fff;
+}
+
+/* Review list pills */
+.review-list {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px;
+}
+.review-row.hidden {
+  display: none;
+}
+.review-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.review-date {
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+}
+.review-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 8px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 12px;
+  border: 1px solid #e3e8ef;
+}
+.pill.yes {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.pill.maybe {
+  background: #fff8e1;
+  color: #ef6c00;
+}
+.pill.no {
+  background: #ffebee;
+  color: #b00020;
+}

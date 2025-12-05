@@ -8,6 +8,29 @@
 .hero h1 {
   margin: 0 0 4px 0;
 }
+.hero {
+  position: relative;
+}
+.settings-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #e3e8ef;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  color: #334155;
+  text-decoration: none;
+}
+.settings-btn svg {
+  width: 20px;
+  height: 20px;
+}
 
 .subtle {
   color: #607d8b;
