@@ -1,0 +1,85 @@
+.page {
+  padding: 16px;
+  padding-bottom: 88px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fb 0%, #eef2ff 100%);
+}
+.muted { color: #64748b; }
+.columns {
+  display: grid;
+  gap: 12px;
+}
+.card {
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 6px 24px rgba(15,23,42,0.06);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid #e3e8ef;
+}
+.chip.yes { background: #e8f5e9; color: #2e7d32; }
+.chip.maybe { background: #fff8e1; color: #ef6c00; }
+.chip.no { background: #ffebee; color: #b00020; }
+.actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.ghost {
+  appearance: none;
+  border: 1px solid #e3e8ef;
+  background: #fff;
+  color: #334155;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.primary {
+  appearance: none;
+  border: none;
+  background: #0b5fff;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.suggestions {
+  margin-top: 12px;
+}
+.scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 2px;
+}
+.suggest-card {
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 10px;
+}
+.dt {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 700;
+}
+.who {
+  margin-top: 6px;
+  color: #334155;
+  font-weight: 600;
+}
+

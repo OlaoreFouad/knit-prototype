@@ -11,6 +11,9 @@ import { KnitFriendsComponent } from './features/knit-friends/knit-friends.compo
 import { KnitEventsComponent } from './features/knit-events/knit-events.component';
 import { KnitSettingsComponent } from './features/knit-settings/knit-settings.component';
 import { AvailabilitySetupComponent } from './features/availability-setup/availability-setup.component';
+import { EventCreateComponent } from './features/event-create/event-create.component';
+import { EventSummaryComponent } from './features/event-summary/event-summary.component';
+import { EventDetailsComponent } from './features/event-details/event-details.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { AvailabilitySetupComponent } from './features/availability-setup/availa
     KnitEventsComponent,
     KnitSettingsComponent,
     AvailabilitySetupComponent,
+    EventCreateComponent,
+    EventSummaryComponent,
+    EventDetailsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [],

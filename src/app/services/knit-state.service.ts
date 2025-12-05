@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Knit } from '../models/knit';
 import { Invite } from '../models/invite';
 import { Availability } from '../models/availability';
+import { KnitEvent } from '../models/event';
 
 type KnitMap = Record<string, Knit>;
 type InviteMap = Record<string, Invite>;
@@ -14,6 +15,12 @@ export class KnitStateService {
   private readonly INVITES_KEY = 'knit:invites';
   private availabilityKey(knitId: string): string {
     return `knit:availability:self:${knitId}`;
+  }
+  private eventsKey(knitId: string): string {
+    return `knit:events:${knitId}`;
+  }
+  private kitKey(eventId: string): string {
+    return `knit:event:${eventId}:kit`;
   }
 
   createKnit(params: { name: string; description?: string }): { knit: Knit; invite: Invite; inviteUrl: string } {
@@ -93,6 +100,42 @@ export class KnitStateService {
       return null;
     }
     return parsed;
+  }
+
+  // Events
+  listEvents(knitId: string): KnitEvent[] {
+    return this.safeParse<KnitEvent[]>(localStorage.getItem(this.eventsKey(knitId))) ?? [];
+  }
+  getEvent(knitId: string, eventId: string): KnitEvent | null {
+    return this.listEvents(knitId).find(e => e.id === eventId) ?? null;
+  }
+  createEvent(knitId: string, data: Omit<KnitEvent, 'id' | 'knitId' | 'createdAt'>): KnitEvent {
+    const events = this.listEvents(knitId);
+    const ev: KnitEvent = {
+      ...data,
+      id: this.generateId('e'),
+      knitId,
+      createdAt: Date.now()
+    };
+    events.push(ev);
+    localStorage.setItem(this.eventsKey(knitId), JSON.stringify(events));
+    return ev;
+  }
+
+  // Event Kit
+  listKitItems(eventId: string): Array<{ id: string; label: string; assignedTo?: string }> {
+    return this.safeParse<Array<{ id: string; label: string; assignedTo?: string }>>(localStorage.getItem(this.kitKey(eventId))) ?? [];
+  }
+  addKitItem(eventId: string, label: string, assignedTo?: string): Array<{ id: string; label: string; assignedTo?: string }> {
+    const items = this.listKitItems(eventId);
+    items.push({ id: this.generateId('kit'), label, assignedTo });
+    localStorage.setItem(this.kitKey(eventId), JSON.stringify(items));
+    return items;
+  }
+  toggleAssignKitItem(eventId: string, itemId: string, user: string = 'You'): Array<{ id: string; label: string; assignedTo?: string }> {
+    const items = this.listKitItems(eventId).map(i => i.id === itemId ? { ...i, assignedTo: i.assignedTo ? undefined : user } : i);
+    localStorage.setItem(this.kitKey(eventId), JSON.stringify(items));
+    return items;
   }
 
   private getKnitsMap(): KnitMap {

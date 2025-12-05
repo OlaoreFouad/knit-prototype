@@ -1,0 +1,51 @@
+<div class="page" *ngIf="event">
+  <header class="head">
+    <h2>Availability summary</h2>
+    <p class="muted">{{ event.title }} — {{ event.dateIso | date:'EEE, MMM d' }} @ {{ event.time }}</p>
+  </header>
+
+  <div class="columns">
+    <div class="col card">
+      <h3>Going ({{ yes.length }})</h3>
+      <div class="chips">
+        <span class="chip yes" *ngFor="let p of yes">{{ p.name }}</span>
+      </div>
+    </div>
+    <div class="col card">
+      <h3>Maybe ({{ maybe.length }})</h3>
+      <div class="chips">
+        <span class="chip maybe" *ngFor="let p of maybe">{{ p.name }}</span>
+      </div>
+    </div>
+    <div class="col card">
+      <h3>Won't make it ({{ no.length }})</h3>
+      <div class="chips">
+        <span class="chip no" *ngFor="let p of no">{{ p.name }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="ghost" (click)="notifyFriends()">{{ notified ? 'Notified!' : 'Notify friends to RSVP' }}</button>
+  </div>
+
+  <details class="suggestions">
+    <summary>See suggested times</summary>
+    <p class="muted">Take a look at our suggested times depending on your friends availability.</p>
+    <div class="scroll">
+      <div class="suggest-card" *ngFor="let idx of [0,1,2,3,4]">
+        <div class="dt">
+          <div class="date">{{ (event.dateIso | date:'EEE, MMM d') }}</div>
+          <div class="time">{{ event.time }}</div>
+        </div>
+        <div class="who">3 can make it</div>
+      </div>
+    </div>
+  </details>
+
+  <div class="actions">
+    <button class="primary" (click)="goToDetails()">Continue</button>
+  </div>
+</div>
+
+

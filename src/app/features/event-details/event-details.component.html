@@ -1,0 +1,32 @@
+<div class="page" *ngIf="event">
+  <header class="head">
+    <h2>{{ event.title }}</h2>
+    <p class="muted">{{ event.dateIso | date:'EEE, MMM d' }} @ {{ event.time }} • {{ event.location }}</p>
+  </header>
+
+  <div class="banner">
+    <img [src]="event.imageUrl" [alt]="event.title" />
+  </div>
+
+  <section class="card">
+    <h3>About</h3>
+    <p>{{ event.description }}</p>
+  </section>
+
+  <section class="card">
+    <h3>Event kit</h3>
+    <div class="kit-add">
+      <input type="text" [(ngModel)]="newItem" placeholder="Add an item (e.g., Cups)" />
+      <button class="primary" (click)="addKitItem()">Add</button>
+    </div>
+    <ul class="kit-list">
+      <li *ngFor="let k of kitItems">
+        <span class="label">{{ k.label }}</span>
+        <button class="ghost" (click)="toggleAssign(k.id)">{{ k.assignedTo ? 'Unassign' : 'Assign to me' }}</button>
+        <span class="assignee" *ngIf="k.assignedTo">Assigned to {{ k.assignedTo }}</span>
+      </li>
+    </ul>
+  </section>
+</div>
+
+

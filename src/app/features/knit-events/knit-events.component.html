@@ -1,6 +1,58 @@
 <div class="page" *ngIf="knit">
-  <h2>{{ knit.name }} — Events</h2>
-  <p class="muted">This is a placeholder. Events and plans will live here.</p>
+  <header class="head">
+    <h2>{{ knit.name }} — Events</h2>
+    <div class="tabs">
+      <button [class.active]="activeTab === 'upcoming'" (click)="activeTab = 'upcoming'">Upcoming</button>
+      <button [class.active]="activeTab === 'past'" (click)="activeTab = 'past'">Past</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <article class="card" *ngFor="let ev of visibleEvents">
+      <div class="image">
+        <img [src]="ev.imageUrl" [alt]="ev.title" />
+        <span class="badge" *ngIf="ev.recurring">{{ recurrenceBadge(ev) }}</span>
+      </div>
+      <div class="content">
+        <h3 class="title">{{ ev.title }}</h3>
+        <p class="desc">{{ ev.description }}</p>
+
+        <div class="row host">
+          <div class="avatar">{{ hostInitials(ev.hostName) }}</div>
+          <div class="hostmeta">
+            <div class="label">Host</div>
+            <div class="name">{{ ev.hostName }}</div>
+          </div>
+        </div>
+
+        <div class="row info">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          </div>
+          <div class="text">
+            <div>{{ ev.dateIso | date:'EEE, MMM d' }}</div>
+            <div class="muted">{{ ev.time }}<span *ngIf="ev.endTime">–{{ ev.endTime }}</span></div>
+          </div>
+        </div>
+
+        <div class="row info">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/></svg>
+          </div>
+          <div class="text">{{ ev.location }}</div>
+        </div>
+
+        <div class="attendees">
+          {{ formatAttendees(ev.attendees) }}
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <button class="fab" [routerLink]="['/knit', knit.id, 'events', 'new']" aria-label="Create event">
+    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 11H13V5h-2v6H5v2h6v6h2v-6h6z"/></svg>
+  </button>
+
   <app-knit-bottom-nav [knitId]="knit.id"></app-knit-bottom-nav>
 </div>
 

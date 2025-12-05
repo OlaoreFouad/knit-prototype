@@ -1,0 +1,36 @@
+<div class="page">
+  <h2>Create event</h2>
+  <form [formGroup]="form" (ngSubmit)="save()" class="form">
+    <label class="field">
+      <span class="label">Title</span>
+      <input type="text" formControlName="title" placeholder="e.g. Friday Dinner" />
+    </label>
+    <label class="field">
+      <span class="label">Description</span>
+      <textarea formControlName="description" rows="3" placeholder="What is this event about?"></textarea>
+    </label>
+    <div class="row2">
+      <label class="field">
+        <span class="label">Date</span>
+        <input type="date" formControlName="dateIso" />
+      </label>
+      <label class="field">
+        <span class="label">Time</span>
+        <input type="time" formControlName="time" />
+      </label>
+    </div>
+    <label class="field">
+      <span class="label">Location</span>
+      <input type="text" formControlName="location" placeholder="Address or place name" />
+    </label>
+    <div class="map">
+      <img [src]="mapUrl" alt="map preview" />
+      <div class="pin">📍</div>
+    </div>
+    <div class="actions">
+      <button type="submit" class="primary">Save</button>
+    </div>
+  </form>
+</div>
+
+
